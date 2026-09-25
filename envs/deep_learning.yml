@@ -1,0 +1,28 @@
+# Environment for training and evaluating the ChromAgeNet CNN:
+#   notebooks/04_chromagenet_training_crossvalidation.ipynb
+#   notebooks/05_chromagenet_metadata_evaluation.ipynb
+#   notebooks/06_chromagenet_compounds_evaluation.ipynb
+#
+#   conda env create -f envs/deep_learning.yml
+#   conda activate chromagenet-dl
+#
+# For GPU support on Linux, replace "tensorflow" with "tensorflow[and-cuda]".
+name: chromagenet-dl
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12.7
+  - pip
+  - pip:
+      - tensorflow==2.17.0
+      # Must match: the trained .keras model was saved with Keras 3.6.0
+      - keras==3.6.0
+      - numpy==1.26.4
+      - pandas==2.2.3
+      - seaborn==0.13.2
+      # Must match: the saved *.joblib calibrators were pickled with 1.5.2
+      - scikit-learn==1.5.2
+      - scipy
+      - matplotlib
+      - joblib
+      - betacal

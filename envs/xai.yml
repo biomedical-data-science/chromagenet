@@ -1,0 +1,34 @@
+# Environment for the explainability (XAI) analysis:
+#   notebooks/07_chromagenet_explainability.ipynb
+#
+#   conda env create -f envs/xai.yml
+#   conda activate chromagenet-xai
+#   pip install --no-deps xplique==1.4.0
+#
+# Xplique 1.4.0 declares tensorflow<2.16, but the trained model is stored in
+# the Keras 3 format (.keras / .weights.h5), which needs TensorFlow >= 2.16.
+# Xplique is therefore installed without its dependency pins in the last
+# step; its remaining dependencies are listed below.
+#
+# For GPU support on Linux, replace "tensorflow" with "tensorflow[and-cuda]".
+name: chromagenet-xai
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - tensorflow==2.17.0
+      # Must match: the trained .keras model was saved with Keras 3.6.0
+      - keras==3.6.0
+      - numpy==1.26.4
+      - pandas==2.2.3
+      - seaborn==0.13.2
+      - scikit-learn==1.5.2
+      - scikit-image==0.24.0
+      - shap==0.47.1
+      - scipy
+      - matplotlib
+      # Xplique dependencies
+      - opencv-python
+      - deprecated

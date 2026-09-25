@@ -1,0 +1,48 @@
+# Environment for image preprocessing and the radiomics analysis:
+#   notebooks/01_czi_exploration_and_outlier_detection.ipynb
+#   notebooks/02_dataset_summary_tables.ipynb
+#   notebooks/03_czi_preprocessing.ipynb
+#   notebooks/08_radiomics_*.ipynb to notebooks/13_radiomics_*.ipynb
+#
+#   conda env create -f envs/preprocessing_radiomics.yml
+#   conda activate chromagenet-radiomics
+#   pip install --no-build-isolation pyradiomics==3.0.1
+#
+# PyRadiomics 3.0.1 has no prebuilt packages for Python >= 3.10, so it is
+# compiled from source in the last step. This needs Python <= 3.11 and a
+# C compiler (provided below); --no-build-isolation makes the build use the
+# numpy installed in this environment.
+name: chromagenet-radiomics
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - c-compiler
+  - setuptools
+  - pip
+  - pip:
+      - numpy==1.26.4
+      - pandas==2.2.3
+      - seaborn==0.13.2
+      - scikit-learn==1.5.2
+      - scikit-image==0.24.0
+      - aicsimageio==4.14.0
+      - aicspylibczi==3.2.0
+      - shap==0.47.1
+      - umap-learn==0.5.6
+      # statannotations 0.6.0 requires seaborn<0.12 and pandas<2.0;
+      # 0.7.x is the first release compatible with the versions above.
+      - statannotations==0.7.2
+      - scipy
+      - matplotlib
+      - pillow
+      - joblib
+      - tqdm
+      - zarr
+      - xgboost
+      # PyRadiomics runtime dependencies (installed here so that only
+      # pyradiomics itself is built in the post-install step)
+      - SimpleITK
+      - PyWavelets
+      - pykwalify
+      - six
